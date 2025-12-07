@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -6,10 +7,11 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: rgb(242,241,237); /* fundo igual login/cadastro */
+  background: rgb(242,241,237);
   color: #333;
 }
 
+/* LAYOUT PRINCIPAL */
 .left-section {
   width: 100%;
   max-width: 1000px;
@@ -17,6 +19,7 @@ body {
   padding: 30px 20px;
 }
 
+/* TOP BAR */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -28,12 +31,12 @@ body {
   width: 140px;
 }
 
-/* BOTÕES – mesma paleta das telas de login e cadastro */
+/* BOTÕES */
 .buttons .btn {
   padding: 10px 20px;
-  text-decoration: none;
-  background: #4A90E2; /* azul igual */
+  background: #4A90E2;
   color: white;
+  text-decoration: none;
   border-radius: 8px;
   font-weight: bold;
   margin-left: 10px;
@@ -41,75 +44,96 @@ body {
 }
 
 .buttons .btn:hover {
-  background: #357ABD; /* hover igual */
+  background: #357ABD;
 }
 
-/* Botão verde de cadastro mantido */
 .signup {
-  background: #32cd32;
+  background: #32cd32 !important;
 }
-
 .signup:hover {
-  background: #2aaa2a;
+  background: #2aaa2a !important;
 }
 
-.content {
-  max-width: 800px;
-  margin: 0 auto 60px auto;
-  padding: 0 20px;
-}
-
+/* TÍTULO */
 .content h2 {
   font-size: 2.2rem;
-  font-weight: bold;
   text-align: center;
+  font-weight: bold;
   line-height: 1.3;
   margin-bottom: 40px;
 }
 
 .content h2 span {
-  color: #4A90E2; /* azul atualizado */
+  color: #4A90E2;
 }
+
+/* ========= FEATURE CARDS (ICONE EM CIMA + TEXTO EM BAIXO) ========= */
 
 .features {
   display: flex;
   justify-content: center;
-  align-items: stretch;
-  gap: 25px;
-  flex-wrap: nowrap; /* todos lado a lado */
-  overflow-x: auto;  /* permite rolar caso extrapole a tela */
-  padding-bottom: 10px;
+  width: 100%;
 }
 
-.feature {
-  background: #ffffff;
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+/* col é só o link */
+.col {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* CARD */
+.tile {
+  background: white;
   padding: 20px;
+  width: 180px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
   text-align: center;
-  border-radius: 12px;
-  transition: 0.2s ease;
-  border: 1px solid #d8d8d8;
+  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Sombras leves estilo Apple */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
 }
 
-.feature:hover {
-  transform: scale(1.05);
-  background: #eef4ff; /* leve azul */
+.tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  background: #f7faff;
 }
 
-.feature img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
+/* ÍCONES UNIFORMES */
+.tile img.icon {
+  width: 110px;           /* LARGURA PADRÃO */
+  height: 110px;          /* ALTURA PADRÃO */
+  padding: 18px;          /* margem interna */
+  background: #f7f7f7;    /* fundo quadrado igual ao seu print */
+  border-radius: 16px;    /* bordas arredondadas */
+  object-fit: contain;    /* NÃO distorce */
   margin-bottom: 12px;
-  border-radius: 10px;
+  display: block;
 }
 
-.feature p {
+/* TEXTO DO CARD */
+.tile p {
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
+  margin-top: 5px;
+  color: #333;
 }
 
+/* ========= FOOTER ========= */
 .footer {
-  margin-top: 50px;
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   gap: 30px;
@@ -120,15 +144,14 @@ body {
   text-decoration: none;
   color: #444;
   font-weight: bold;
-  transition: 0.2s;
 }
 
 .contact:hover {
-  color: #4A90E2; /* coerente com o resto */
+  color: #4A90E2;
 }
 
-.icon {
-  width: 18px;
+.footer .icon {
+  width: 20px;
   margin-right: 6px;
   vertical-align: middle;
 }

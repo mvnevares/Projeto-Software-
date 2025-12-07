@@ -14,28 +14,31 @@
 
 <img src="{% static 'img/logo.png' %}" alt="Logo Studygram" class="logo">
 
-
 <div class="card">
 <h2>Bem vindo de volta!</h2>
 <p class="subtitle">Faça login para continuar seus estudos.</p>
 
 <form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-{% if error %}
-	<p class="error">{{ error }}</p>
-{% endif %}
-<input type="text" name="username" placeholder="Usuário ou Email" required>
-<input type="password" name="password" placeholder="Senha" required>
+    {% csrf_token %}
 
-<button type="submit">Entrar</button>
+    <input type="hidden" name="next" value="{{ next }}">
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <input type="text" name="username" placeholder="Usuário ou Email" required>
+    <input type="password" name="password" placeholder="Senha" required>
+
+    <button type="submit">Entrar</button>
 </form>
 
 <div class="link">
-<a href="#">Esqueceu a senha?</a>
+    <a href="{% url 'password_reset' %}">Esqueceu a senha?</a>
 </div>
 
 <div class="register">
-Não tem uma conta? <a href="{% url 'signup' %}">Crie uma nova</a>
+    Não tem uma conta? <a href="{% url 'signup' %}">Crie uma nova</a>
 </div>
 </div>
 

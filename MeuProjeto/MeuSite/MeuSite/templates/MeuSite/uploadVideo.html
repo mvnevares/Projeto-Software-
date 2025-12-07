@@ -1,0 +1,26 @@
+{% extends "MeuSite/base.html" %}
+{% block title %}Compartilhar Vídeo{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Compartilhar Vídeo</h2>
+  <form method="post" action="{% url 'upload_video' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input id="titulo" name="titulo" type="text" required>
+    </div>
+
+    <div class="form-group">
+      <label for="url">Link do vídeo</label>
+      <input id="url" name="url" type="text" placeholder="https://...">
+    </div>
+
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <textarea id="descricao" name="descricao"></textarea>
+    </div>
+
+    <button class="btn" type="submit">Compartilhar</button>
+  </form>
+</div>
+{% endblock %}

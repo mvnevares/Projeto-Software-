@@ -1,0 +1,25 @@
+{% extends "MeuSite/base.html" %}
+{% block title %}Grupos - StudyGram{% endblock %}
+{% block content %}
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h2>Grupos de Estudo</h2>
+    <a href="{% url 'criar_grupo' %}" class="btn small">Criar Grupo</a>
+  </div>
+
+  <div class="row" style="margin-top:18px">
+    {% for grupo in grupos %}
+      <div class="tile">
+        <img class="icon" src="{% static 'img/grupo.png' %}" alt="grupo">
+        <h3>{{ grupo.nome }}</h3>
+        <p class="subtitle">{{ grupo.descricao|truncatechars:80 }}</p>
+        <div style="margin-top:12px">
+          <a class="btn small" href="{% url 'ver_grupo' grupo.id %}">Entrar</a>
+        </div>
+      </div>
+    {% empty %}
+      <p class="subtitle">Nenhum grupo criado ainda.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

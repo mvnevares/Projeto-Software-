@@ -1,0 +1,33 @@
+{% extends "MeuSite/base.html" %}
+{% block title %}Criar Resumo - StudyGram{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Criar Resumo</h2>
+  <p class="subtitle">Escreva um resumo rápido para compartilhar com o grupo.</p>
+
+  <form method="post" action="{% url 'criar_resumo' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input id="titulo" name="titulo" type="text" required>
+    </div>
+
+    <div class="form-group">
+      <label for="materia">Matéria</label>
+      <input id="materia" name="materia" type="text" placeholder="Ex: Física, Cálculo">
+    </div>
+
+    <div class="form-group">
+      <label for="conteudo">Resumo</label>
+      <textarea id="conteudo" name="conteudo" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="arquivo">Anexar imagem / PDF (opcional)</label>
+      <input id="arquivo" name="arquivo" type="file" accept=".png,.jpg,.jpeg,.pdf">
+    </div>
+
+    <button class="btn" type="submit">Publicar Resumo</button>
+  </form>
+</div>
+{% endblock %}
