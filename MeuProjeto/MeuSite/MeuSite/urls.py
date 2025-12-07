@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 from MeuSite import views  # <-- MANTER SÓ ESTE
 
 urlpatterns = [
+    # Rotas Principais (Comuns)
     path("admin/", admin.site.urls),
 
     # Páginas principais

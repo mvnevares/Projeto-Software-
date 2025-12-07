@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -83,3 +84,49 @@
 
 </body>
 </html>
+=======
+{% extends 'MeuSite/base.html' %}
+{% load static %}
+
+{% block title %}Home - StudyGram{% endblock %}
+
+{% block content %}
+    <div class="welcome-section" style="text-align: center; margin-bottom: 20px;">
+        <h2>Troque Conteúdos, Estude em grupo e evolua com o <span style="color: #4CAF50;">StudyGram</span></h2>
+    </div>
+
+    {% if user.is_authenticated %}
+        <div style="margin-bottom: 20px; text-align: center;">
+            <a href="{% url 'criar_post' %}" class="btn" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                📢 Postar Novo Resumo
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="feed-container" style="max-width: 800px; margin: 0 auto;">
+        {% for post in posts %}
+            <div class="post-card" style="border: 1px solid #ddd; background-color: white; margin-bottom: 20px; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                
+                <h3 style="margin-top: 0; color: #333;">{{ post.titulo }}</h3>
+                <p style="font-size: 0.9em; color: #666;">
+                    <strong>Autor:</strong> {{ post.autor.username }} | 
+                    <strong>Data:</strong> {{ post.data_criacao|date:"d/m/Y H:i" }}
+                </p>
+                
+                {% if post.imagem %}
+                    <div style="text-align: center; margin: 10px 0;">
+                        <img src="{{ post.imagem.url }}" alt="Imagem do resumo" style="max-width: 100%; height: auto; border-radius: 4px;">
+                    </div>
+                {% endif %}
+                
+                <p>{{ post.conteudo }}</p>
+            </div>
+        
+        {% empty %}
+            <div style="text-align: center; padding: 40px; background-color: #f9f9f9; border-radius: 8px;">
+                <p>Ainda não há resumos. Seja o primeiro a postar!</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+>>>>>>> a2a600b44b9ce3a5cd824c60db03caee29ae393a
