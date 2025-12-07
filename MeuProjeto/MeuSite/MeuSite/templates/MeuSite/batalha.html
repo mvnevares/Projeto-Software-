@@ -1,0 +1,37 @@
+{% extends "MeuSite/base.html" %}
+{% block title %}Batalhas{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Batalhas de Resumos</h2>
+  <p class="subtitle">Vote no melhor resumo entre dois competidores.</p>
+
+  {% for batalha in batalhas %}
+  <div style="display:flex;gap:12px;align-items:stretch;margin-top:16px">
+    <div class="tile" style="flex:1">
+      <h3>{{ batalha.resumo_a.titulo }}</h3>
+      <p class="subtitle">{{ batalha.resumo_a.excerpt }}</p>
+      <a href="#" class="btn small">Ver</a>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center">
+      <form method="post" action="{% url 'votar_batalha' batalha.id 'A' %}">
+        {% csrf_token %}
+        <button class="btn small" type="submit">Votar A</button>
+      </form>
+      <form method="post" action="{% url 'votar_batalha' batalha.id 'B' %}">
+        {% csrf_token %}
+        <button class="btn small" type="submit">Votar B</button>
+      </form>
+    </div>
+
+    <div class="tile" style="flex:1">
+      <h3>{{ batalha.resumo_b.titulo }}</h3>
+      <p class="subtitle">{{ batalha.resumo_b.excerpt }}</p>
+      <a href="#" class="btn small">Ver</a>
+    </div>
+  </div>
+  {% empty %}
+    <p class="subtitle">Nenhuma batalha ativa no momento.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="left-section">
+  <div class="top-bar">
+      <img src="/static/logo.png" class="logo">
+      <div class="buttons">
+          <a href="{% url 'home' %}" class="btn">Home</a>
+          <a href="{% url 'criar_video' %}" class="btn">+ Vídeo</a>
+      </div>
+  </div>
+
+  <h2 class="titulo-pagina">Vídeos Compartilhados</h2>
+
+  <div class="features">
+      {% for video in videos %}
+      <div class="feature">
+          <p><b>{{ video.titulo }}</b></p>
+          <a href="{{ video.url }}" target="_blank">Assistir</a>
+          <p style="font-size: 0.8rem; margin-top: 10px;">
+            por {{ video.autor.username }} — {{ video.criado_em|date:"d/m/Y" }}
+          </p>
+      </div>
+      {% empty %}
+      <p>Nenhum vídeo ainda.</p>
+      {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

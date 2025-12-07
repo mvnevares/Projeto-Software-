@@ -1,3 +1,90 @@
+<<<<<<< HEAD
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyGram</title>
+  <link rel="stylesheet" href="{% static 'css/pagina.css' %}?v=3">
+</head>
+
+<body>
+
+  <div class="left-section">
+
+    <div class="top-bar">
+      <img src="{% static 'img/logo.png' %}" alt="Logo StudyGram" class="logo">
+      <div class="buttons">
+        <a href="{% url 'login' %}" class="btn">Entrar</a>
+        <a href="{% url 'signup' %}" class="btn signup">Criar conta</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2>
+        Troque Conteúdos, Estude em grupo e evolua com o 
+        <span>StudyGram</span>
+      </h2>
+
+      <!-- FEATURES -->
+      <div class="features">
+        <div class="row">
+
+          <a href="{% url 'criar_resumo' %}" class="col">
+            <div class="tile">
+              <img src="{% static 'img/resumo.jpeg' %}" class="icon">
+              <p>Postagem de Resumos</p>
+            </div>
+          </a>
+
+          <a href="{% url 'upload_video' %}" class="col">
+            <div class="tile">
+              <img src="{% static 'img/youtube.jpeg' %}" class="icon">
+              <p>Compartilhar Vídeos</p>
+            </div>
+          </a>
+
+          <a href="{% url 'criar_grupo' %}" class="col">
+            <div class="tile">
+              <img src="{% static 'img/grupos.jpeg' %}" class="icon">
+              <p>Criar Grupos de Estudo</p>
+            </div>
+          </a>
+
+          <a href="{% url 'batalha' %}" class="col">
+            <div class="tile">
+              <img src="{% static 'img/batalha.jpeg' %}" class="icon">
+              <p>Batalhas de Resumos</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+
+      <a href="#" class="contact">
+        <img src="{% static 'img/whatts.jpeg' %}" alt="WhatsApp" class="icon">
+        Contato
+      </a>
+
+      <a href="#" class="contact">
+        <img src="{% static 'img/instagram.jpeg' %}" alt="Instagram" class="icon">
+        Redes Sociais
+      </a>
+
+      <a href="#" class="contact">Termos de Uso</a>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
+=======
 {% extends 'MeuSite/base.html' %}
 {% load static %}
 
@@ -42,3 +129,4 @@
         {% endfor %}
     </div>
 {% endblock %}
+>>>>>>> a2a600b44b9ce3a5cd824c60db03caee29ae393a

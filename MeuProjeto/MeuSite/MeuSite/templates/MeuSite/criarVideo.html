@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="left-section">
+  <div class="top-bar">
+      <img src="/static/logo.png" class="logo">
+      <div class="buttons">
+          <a href="{% url 'home' %}" class="btn">Home</a>
+          <a href="{% url 'logout' %}" class="btn signup">Sair</a>
+      </div>
+  </div>
+
+  <h2 class="titulo-pagina">Compartilhar Vídeo</h2>
+
+  <form method="POST" class="form-box">
+      {% csrf_token %}
+      <label>Título:</label>
+      <input type="text" name="titulo" required>
+
+      <label>URL do vídeo (YouTube):</label>
+      <input type="url" name="url" required>
+
+      <button type="submit" class="btn signup">Publicar Vídeo</button>
+  </form>
+</div>
+
+{% endblock %}

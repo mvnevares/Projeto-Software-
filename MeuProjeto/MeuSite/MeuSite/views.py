@@ -1,157 +1,132 @@
-# --- IMPORTS COMBINADOS DE AMBAS AS VERSÕES ---
-from django.shortcuts import render, redirect
-from .models import Resumo
-from django.db.models import Q 
-from django.views.generic.base import View
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User 
-from django.contrib import messages
-from .forms import PostForm
-from .models import Post
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import UsuarioPerfil, Resumo, Comentario, Material, Video
 
-# --- FUNÇÃO HOME (COMUM) ---
-def home(request):
-    # Busca todos os posts, do mais recente para o mais antigo
-    posts = Post.objects.all().order_by('-data_criacao')
-    return render(request, 'MeuSite/home.html', {'posts': posts})
-    
+
 def login_view(request):
-    '''
-    View function for login page.
-    Handles POST to authenticate user and redirects to home on success.
-    '''
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        next_url = request.POST.get('next')
         user = authenticate(request, username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
+            if next_url:
+                return redirect(next_url)
             return redirect('home')
-        else:
-            return render(request, 'MeuSite/login.html', {'error': 'Credenciais inválidas'})
+        return render(request, 'MeuSite/login.html', {
+            'error': 'Usuário ou senha incorretos.',
+            'next': next_url
+        })
 
-    return render(request, 'MeuSite/login.html')
+    next_url = request.GET.get('next', '')
+    return render(request, 'MeuSite/login.html', {'next': next_url})
 
 
 def signup_view(request):
-    '''
-    View function for signup page.
-    Handles POST to create new user and redirects to login on success.
-    '''
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        password_confirm = request.POST.get('password_confirm')
-
-        # Validate inputs
-        if not username or not email or not password or not password_confirm:
-            return render(request, 'MeuSite/signup.html', {'error': 'Todos os campos são obrigatórios'})
-
-        if password != password_confirm:
-            return render(request, 'MeuSite/signup.html', {'error': 'As senhas não coincidem'})
-
-        if len(password) < 6:
-            return render(request, 'MeuSite/signup.html', {'error': 'A senha deve ter pelo menos 6 caracteres'})
-
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        confirm = request.POST.get("confirm")
+        if password != confirm:
+            messages.error(request, "As senhas não coincidem.")
+            return redirect("signup")
         if User.objects.filter(username=username).exists():
-            return render(request, 'MeuSite/signup.html', {'error': 'Usuário já existe'})
-
-        if User.objects.filter(email=email).exists():
-            return render(request, 'MeuSite/signup.html', {'error': 'Email já cadastrado'})
-
-        # Create user
+            messages.error(request, "Nome de usuário já existe.")
+            return redirect("signup")
         user = User.objects.create_user(username=username, email=email, password=password)
-        user.save()
+        UsuarioPerfil.objects.create(user=user)
+        login(request, user)
+        return redirect("home")
+    return render(request, "MeuSite/signup.html")
 
-        messages.success(request, 'Conta criada com sucesso! Faça login para continuar.')
-        return redirect('login')
+def logout_view(request):
+    return redirect("login")
 
-    return render(request, 'MeuSite/signup.html')
+def home(request):
+    return render(request, "MeuSite/home.html")
 
+@login_required
+def criar_resumo_view(request):
+    if request.method == "POST":
+        titulo = request.POST.get("titulo")
+        materia = request.POST.get("materia")
+        conteudo = request.POST.get("conteudo")
+        Resumo.objects.create(
+            titulo=titulo,
+            materia=materia,
+            conteudo=conteudo,
+            autor=request.user
+        )
+        messages.success(request, "Resumo criado com sucesso!")
+        return redirect("home")
+    return render(request, "MeuSite/criarResumo.html")  # <-- corrigido
 
-class ResumoListView(View):
+from django.shortcuts import render
 
-    def get(self, request, *args, **kwargs):
-        resumos = Resumo.objects.all().order_by('-data_criacao')
-        contexto = {'pessoas': resumos}       
-        return render(request, 'MeuSite/listaResumos.html', contexto)
-    
-def buscarResumo(request):
-    """
-    Renderiza o template que contém o formulário de busca (buscaResumo.html)
-    """
-    return render(request, 'MeuSite/buscaResumo.html')
-    
-def resultadoBusca(request):
-    titulo_busca = request.GET.get('titulo')
+def lista_resumo_view(request):
     resumos = Resumo.objects.all()
+    return render(request, 'MeuSite/listaResumo.html', {})
+ 
+def perfil_view(request, username):
+    usuario = get_object_or_404(User, username=username)
+    perfil = UsuarioPerfil.objects.get(user=usuario)
+    resumos = Resumo.objects.filter(autor=usuario).order_by("-data_criacao")
+    return render(request, "MeuSite/perfil.html", {
+        "usuario": usuario,
+        "perfil": perfil,
+        "resumos": resumos
+    })
 
-    if titulo_busca:
-        resumos = resumos.filter(Q(titulo__icontains=titulo_busca))
-        
-    contexto = {'pessoas': resumos}
+@login_required
+def editar_perfil_view(request):
+    perfil = UsuarioPerfil.objects.get(user=request.user)
+    if request.method == "POST":
+        perfil.bio = request.POST.get("bio")
+        perfil.area_estudo = request.POST.get("area_estudo")
+        if "foto" in request.FILES:
+            perfil.foto = request.FILES["foto"]
+        perfil.save()
+        messages.success(request, "Perfil atualizado!")
+        return redirect("perfil", username=request.user.username)
+    return render(request, "MeuSite/editarPerfil.html")  
+
+def grupos_view(request):
+    return render(request, "MeuSite/grupos.html")
+
+
+def criar_grupo_view(request):
+    return render(request, "MeuSite/criarGrupo.html") 
+
+def batalha_view(request):
+    return render(request, "MeuSite/batalha.html") 
+
+def votar_batalha_view(request, batalha_id, escolha):
+    return render(request, "MeuSite/batalha.html") 
+
+@login_required
+def upload_video_view(request):
+    if request.method == "POST":
+        titulo = request.POST.get("titulo")
+        url = request.POST.get("url")
+        Video.objects.create(
+            titulo=titulo,
+            url=url,
+            autor=request.user
+        )
+        messages.success(request, "Vídeo enviado!")
+        return redirect("pagina_video")
+    return render(request, "MeuSite/uploadVideo.html")  # <-- corrigido
+
+def pagina_video_view(request):
+    videos = Video.objects.all().order_by("-criado_em")
+    return render(request, "MeuSite/paginaVideo.html", {"videos": videos})  # <-- corrigido
+
+def get(self, request, *args, **kwargs):
+    resumos = Resumo.objects.all().order_by('-data_criacao')
+    contexto = {'pessoas': resumos}       
     return render(request, 'MeuSite/listaResumos.html', contexto)
-
-def view_login(request):
-    # Se o usuário já está logado, redireciona para a home
-    if request.user.is_authenticated:
-        return redirect('home')
-
-    # Se o formulário foi enviado (método POST)
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-
-            # Se o usuário existir e a senha estiver correta
-            if user is not None:
-                login(request, user)
-                messages.success(request, f"Bem-vindo(a) de volta, {username}!")
-                return redirect('home') # Redireciona para a Home
-            else:
-                messages.error(request, "Usuário ou senha inválidos.")
-        else:
-            messages.error(request, "Usuário ou senha inválidos.")
-
-    # Se o usuário está apenas acessando a página (método GET)
-    form = AuthenticationForm()
-    # Renderiza o template de login (que sua equipe 'fez')
-    return render(request, 'MeuSite/login.html', {'form': form})
-
-def view_cadastro(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save() # Salva o novo usuário no banco de dados
-            messages.success(request, "Cadastro realizado com sucesso! Faça o login.")
-            return redirect('login') # Redireciona para o Login
-        else:
-            messages.error(request, "Não foi possível realizar o cadastro. Verifique os erros.")
-
-    form = UserCreationForm()
-
-    return render(request, 'MeuSite/cadastro.html', {'form': form})
-
-@login_required(login_url='login') # Garante que só quem está logado pode postar
-def criar_post(request):
-    if request.method == 'POST':
-        # request.FILES é necessário para upload de imagens
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False) # Cria o objeto mas não salva ainda
-            post.autor = request.user      # Preenche o autor com o usuário logado
-            post.save()                    # Agora salva no banco
-            messages.success(request, "Resumo postado com sucesso!")
-            return redirect('home')
-    else:
-        form = PostForm()
-    
-    return render(request, 'MeuSite/criar_post.html', {'form': form})

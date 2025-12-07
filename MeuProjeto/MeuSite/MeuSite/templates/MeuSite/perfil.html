@@ -1,0 +1,34 @@
+{% extends "MeuSite/base.html" %}
+{% block title %}Perfil - {{ user.get_full_name|default:user.username }}{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <h2>{{ profile.display_name|default:user.username }}</h2>
+      <p class="subtitle">{{ profile.bio|default:"Sem biografia ainda." }}</p>
+      <div class="actions">
+        {% if request.user == user %}
+          <a href="{% url 'editar_perfil' %}" class="btn">Editar Perfil</a>
+          <a href="{% url 'criar_resumo' %}" class="btn ghost">Novo Resumo</a>
+        {% endif %}
+        <a href="{% url 'grupos' %}" class="btn ghost">Meus Grupos</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <h3>Resumos publicados</h3>
+      {% if resumos %}
+        <ul>
+          {% for r in resumos %}
+            <li><a href="{% url 'ver_resumo' r.id %}">{{ r.titulo }}</a> <small>- {{ r.created_at|date:"d/m/Y" }}</small></li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="subtitle">Nenhum resumo publicado ainda.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

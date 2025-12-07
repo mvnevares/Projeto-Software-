@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="left-section">
+    <div class="top-bar">
+        <img src="/static/logo.png" class="logo">
+        <div class="buttons">
+            <a href="{% url 'home' %}" class="btn">Home</a>
+        </div>
+    </div>
+
+    <h2 class="titulo-pagina">Sobre o Projeto</h2>
+
+    <p style="margin-top:20px; font-size:1.1rem;">
+        Este site foi criado para facilitar o compartilhamento de resumos, 
+        vídeos e recursos entre estudantes. Aqui você pode estudar, colaborar 
+        e participar de batalhas de conhecimento.
+    </p>
+</div>
+
+{% endblock %}

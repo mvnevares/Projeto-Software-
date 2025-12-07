@@ -1,21 +1,22 @@
-"""
-Django settings for MeuSite project.
-(O resto dos comentários do topo...)
-"""
-
 from pathlib import Path
-import os # (Import necessário para o MEDIA_ROOT)
+import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings...
 SECRET_KEY = "django-insecure-ukgnxo3!wlufbhxnk!f4s%p$x*!@&_!^$uo$*u*pf*81=w+*zi"
 DEBUG = True
-ALLOWED_HOSTS = ['*']
 
+ALLOWED_HOSTS = ["*", "localhost", "127.0.0.1"]
 
-# Application definition
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+    "https://localhost:8000",
+    "http://127.0.0.1:8000",
+    "https://127.0.0.1:8000",
+]
+# ---------------------------
+# APPS
+# ---------------------------
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -23,9 +24,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'MeuSite',
+
+    "MeuSite",
 ]
 
+
+# ---------------------------
+# MIDDLEWARE
+# ---------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -36,12 +42,19 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 ROOT_URLCONF = "MeuSite.urls"
 
+
+# ---------------------------
+# TEMPLATES
+# ---------------------------
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            BASE_DIR / "MeuSite" / "templates"
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -53,10 +66,14 @@ TEMPLATES = [
     },
 ]
 
+
+
 WSGI_APPLICATION = "MeuSite.wsgi.application"
 
 
-# Database
+# ---------------------------
+# DATABASE
+# ---------------------------
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -65,38 +82,58 @@ DATABASES = {
 }
 
 
-# Password validation
+# ---------------------------
+# PASSWORD VALIDATION
+# ---------------------------
 AUTH_PASSWORD_VALIDATORS = [
-    # ... (Validadores de senha) ...
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 
-# Internationalization
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+# ---------------------------
+# INTERNACIONALIZAÇÃO
+# ---------------------------
+LANGUAGE_CODE = "pt-br"
+TIME_ZONE = "America/Sao_Paulo"
+
 USE_I18N = True
 USE_TZ = True
 
 
+# ---------------------------
+# STATIC FILES
+# ---------------------------
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [ BASE_DIR / "MeuSite" / "static" ]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"   # para produção
 
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-# --- Fim da Resolução ---
+# ---------------------------
+# MEDIA FILES
+# ---------------------------
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
+
+# ---------------------------
+# LOGIN / LOGOUT CONFIG
+# ---------------------------
+LOGIN_URL = "/login/"                 # ROTA REAL
+LOGOUT_REDIRECT_URL = "/"             # HOME REAL
+LOGIN_REDIRECT_URL = "/"              # após login → home
+
+
+# ---------------------------
+# EMAIL BACKEND (DESENVOLVIMENTO)
+# ---------------------------
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-import os
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://localhost:8000',      # <-- Essa é a que o erro pediu especificamente
-    'http://localhost:8000',       # Por garantia
-    'http://127.0.0.1:8000',       # Por garantia
-    'https://spidery-crypt-69779pgx7ppq25vvr-8000.app.github.dev'# Se quiser, adicione o seu link https://...github.dev aqui também
-]
