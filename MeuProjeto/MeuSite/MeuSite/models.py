@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User  # para associar conteúdos a usuários
 
+# MeuSite/models.py
+
 class UsuarioPerfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, help_text='Fale um pouco sobre você')
-    area_estudo = models.CharField(max_length=100, help_text='Sua área principal de estudo')
+    area_estudo = models.CharField(max_length=100, help_text='Sua área principal de estudo', 
+                                   null=True, blank=True)    
     foto = models.ImageField(upload_to='fotos_perfil/', blank=True, null=True)
-    
     def __str__(self):
         return self.user.username
 

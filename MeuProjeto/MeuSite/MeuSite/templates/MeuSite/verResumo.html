@@ -1,0 +1,31 @@
+{% extends "MeuSite/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ resumo.titulo }} | StudyGram
+{% endblock %}
+
+{% block content %}
+    <div class="resumo-container">
+        
+        <h1 class="resumo-titulo">{{ resumo.titulo }}</h1>
+        
+        <p class="resumo-meta">
+            Autor: <a href="{% url 'perfil' username=resumo.autor.username %}">{{ resumo.autor.username }}</a> | 
+            Criado em: {{ resumo.data_criacao|date:"d/m/Y H:i" }}
+        </p>
+
+        <hr>
+
+        <div class="resumo-conteudo">
+            {# O conteúdo do resumo é exibido aqui. Use a tag safe se for HTML renderizado #}
+            {{ resumo.conteudo|linebreaks }}
+        </div>
+        
+        <hr>
+
+        <a href="{% url 'listaResumo' %}" class="btn-voltar">
+            &larr; Voltar para a Lista de Resumos
+        </a>
+    </div>
+{% endblock %}

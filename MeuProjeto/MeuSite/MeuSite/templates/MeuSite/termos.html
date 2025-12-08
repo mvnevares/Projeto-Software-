@@ -1,0 +1,46 @@
+{% extends "MeuSite/base.html" %}
+{% block title %}Termos de Uso - StudyGram{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <h1>Termos de Uso do StudyGram</h1>
+            <p class="subtitle">Última atualização: 7 de Dezembro de 2025</p>
+
+            <h3 style="margin-top: 30px;">1. Aceitação dos Termos</h3>
+            <p>
+                Ao acessar e utilizar o StudyGram, você concorda em cumprir estes Termos de Uso e todas as leis e regulamentos aplicáveis.
+                Se você não concordar com algum destes termos, está proibido de usar ou acessar este site.
+            </p>
+
+            <h3>2. Uso da Plataforma</h3>
+            <ul>
+                <li>O StudyGram é uma plataforma de estudo e colaboração.</li>
+                <li>Você é responsável por manter a confidencialidade de sua conta e senha.</li>
+                <li>Você concorda em não postar conteúdo ilegal, ofensivo ou que viole direitos autorais de terceiros.</li>
+            </ul>
+
+            <h3>3. Propriedade Intelectual</h3>
+            <p>
+                Todo o conteúdo original (design, código-fonte, logotipo) é propriedade do StudyGram e está protegido por leis de direitos autorais.
+                Os resumos e materiais compartilhados pelos usuários são de responsabilidade deles.
+            </p>
+            
+            <h3>4. Limitação de Responsabilidade</h3>
+            <p>
+                O StudyGram e seus criadores não serão responsáveis por quaisquer danos diretos ou indiretos resultantes do uso indevido da plataforma.
+            </p>
+
+            <h3>5. Modificações dos Termos</h3>
+            <p>
+                Reservamos o direito de revisar estes Termos de Uso a qualquer momento, sem aviso prévio. O uso contínuo do site constitui a aceitação dos novos termos.
+            </p>
+
+            <a href="{% url 'principal' %}" class="btn ghost" style="margin-top: 20px;">
+                Voltar à Página Inicial
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

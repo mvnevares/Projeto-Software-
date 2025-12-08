@@ -2,25 +2,34 @@
 {% block title %}Editar Perfil{% endblock %}
 {% block content %}
 <div class="card">
-  <h2>Editar Perfil</h2>
-  <form method="post" action="{% url 'editar_perfil' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="display_name">Nome</label>
-      <input id="display_name" name="display_name" type="text" value="{{ profile.display_name }}">
-    </div>
+  <h2>Editar Perfil</h2>
+  <form method="post" action="{% url 'editar_perfil' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {# VOCÊ PODE TER O NOME 'display_name' MAS PRECISA TRATAR ELE MANUALMENTE NA VIEW #}
+    <div class="form-group">
+      <label for="display_name">Nome</label>
+      <input id="display_name" name="display_name" type="text" value="{{ user.first_name }}">
+    </div>
 
-    <div class="form-group">
-      <label for="bio">Biografia</label>
-      <textarea id="bio" name="bio">{{ profile.bio }}</textarea>
-    </div>
+    <div class="form-group">
+      <label for="bio">Biografia</label>
+      <textarea id="bio" name="bio">{{ perfil.bio }}</textarea>
+    </div>
 
+    {# ADICIONE O CAMPO AREA_ESTUDO, MESMO QUE SEJA OPCIONAL #}
     <div class="form-group">
-      <label for="avatar">Alterar foto (opcional)</label>
-      <input id="avatar" name="avatar" type="file" accept="image/*">
-    </div>
+      <label for="area_estudo">Área de Estudo</label>
+      <input id="area_estudo" name="area_estudo" type="text" value="{{ perfil.area_estudo }}">
+    </div>
 
-    <button class="btn" type="submit">Salvar</button>
-  </form>
+    <div class="form-group">
+      <label for="foto">Alterar foto (opcional)</label>
+      <input id="foto" name="foto" type="file" accept="image/*">
+      {# ^ Mudei 'avatar' para 'foto' #}
+    </div>
+
+    <button class="btn" type="submit">Salvar</button>
+  </form>
 </div>
 {% endblock %}
