@@ -45,22 +45,22 @@ A proposta é criar um espaço digital que incentive o estudo, a colaboração e
 ### 1. Para fazer login
 Nossa página inicial apresenta o **menu principal** e uma visão geral do StudyGram, com acesso rápido às seções de estudos, perfis e recursos.
 
-> ![Login do StudyGram](https://github.com/mvnevares/Atividade-1/blob/main/IMG_1642.jpeg?raw=true)
+> ![Login do StudyGram]()
 
 ### 2. Abrindo a página inicial
 Nossa página inicial apresenta o **menu principal** e uma visão geral do StudyGram, com acesso rápido às seções de estudos, perfis e recursos.
 
-> ![Tela inicial do StudyGram](https://github.com/mvnevares/Atividade-1/blob/main/Tela%20StudyGram.png?raw=true)
+> ![Tela inicial do StudyGram]()
 
 ### 3. Nossa seção de estudos
 Nesta área, os usuários podem **visualizar e compartilhar resumos**, anotações e materiais sobre diversos temas.  
 É possível filtrar conteúdos por matéria ou autor.
 
-> ![Seção de estudos](https://github.com/mvnevares/Atividade-1/blob/main/IMG_1643.jpeg?raw=true)
+> ![Seção de estudos]()
 
 ### 4. Contato e redes sociais
 Na parte inferior do site há links diretos para redes sociais (como **WhatsApp** e **Instagram**), permitindo contato rápido com o grupo ou com o suporte do projeto.
-> ![Rodapé com redes sociais](https://github.com/mvnevares/Atividade-1/blob/main/IMG_1644.jpeg?raw=true)`
+> ![Rodapé com redes sociais]()`
 
 © 2025 StudyGram — Todos os direitos reservados.
 
