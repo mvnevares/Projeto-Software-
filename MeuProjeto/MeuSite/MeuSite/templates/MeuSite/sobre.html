@@ -1,9 +1,8 @@
-{% extends "base.html" %}
+{% extends "MeuSite/base.html" %}
 {% block content %}
 
 <div class="left-section">
     <div class="top-bar">
-        <img src="/static/logo.png" class="logo">
         <div class="buttons">
             <a href="{% url 'home' %}" class="btn">Home</a>
         </div>
@@ -16,6 +15,14 @@
         vídeos e recursos entre estudantes. Aqui você pode estudar, colaborar 
         e participar de batalhas de conhecimento.
     </p>
+    <p style="margin-top:12px; font-size:1.1rem;">
+        Nosso objetivo é criar uma comunidade de aprendizado onde todos possam 
+        contribuir e crescer juntos. Sinta-se à vontade para explorar as 
+        funcionalidades do site e fazer parte dessa jornada educacional!
+    </p>
+    <a href="{% url 'colaboradores' %}" class="btn ghost small">
+        Conheça a Equipe
+    </a>
 </div>
 
 {% endblock %}

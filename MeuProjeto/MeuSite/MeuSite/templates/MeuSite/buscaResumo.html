@@ -1,17 +1,27 @@
+{% extends "MeuSite/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busca de Resumo</title>
-</head>
-<body>
-    <h1>Busca de Resumo (StudyGram)</h1>
 
-    <form action="{% url 'meu_site:resultado-busca' %}" method="get">
-        Título: <input type="text" name="titulo" id="titulo">
-        <button type="submit">Busca</button>
+{% block content %}
+    <h1>Buscar Resumos</h1>
+
+    <form method="GET" action="{% url 'buscar-resumo' %}">
+        <input 
+            type="text" 
+            name="q" 
+            placeholder="Digite o título ou termo de busca..."
+            value="{{ termo_busca }}"
+        >
+        <button type="submit">Buscar</button>
     </form>
-</body>
-</html>
+    
+    {% comment %} 
+    {% if resultados %}
+        <h2>Resultados da Busca</h2>
+        {% elif termo_busca %}
+        <p>Nenhum resumo encontrado para "{{ termo_busca }}".</p>
+    {% endif %}
+    {% endcomment %}
+
+    <p><a href="{% url 'listaResumo' %}">Voltar para a Lista Completa</a></p>
+
+{% endblock %}

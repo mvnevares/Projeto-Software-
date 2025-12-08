@@ -1,13 +1,15 @@
+{% extends "MeuSite/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Lista de Resumos (StudyGram)</title>
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <h1>Lista de Resumos (Consulta)</h1>
+
+{% block title %}
+    Lista de Resumos (StudyGram)
+{% endblock %}
+
+{% block content %}
+    <h1>Lista de Resumos</h1>
+    
+    <p><a href="{% url 'buscar-resumo' %}">Fazer Nova Busca</a></p>
+
     <table>
         <tr><th>Título</th><th>Conteúdo</th><th>Data de Criação</th></tr>
         {% for pessoa in pessoas %}
@@ -21,6 +23,4 @@
         {% endfor %}
     </table>
 
-    <p><a href="{% url 'meu_site:buscar-resumo' %}">Fazer Nova Busca</a></p>
-</body>
-</html>
+{% endblock %}

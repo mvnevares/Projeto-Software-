@@ -1,0 +1,44 @@
+{% extends "MeuSite/base.html" %}
+{% block title %}Colaboradores - StudyGram{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <h1> Colaboradores do Projeto </h1>
+            <p class="subtitle">Agradecemos aos membros da equipe principal pelo desenvolvimento do StudyGram.</p>
+
+            <div class="lista-colaboradores" style="margin-top: 30px;">
+                
+                {# === Colaborador 1 === #}
+                <div class="colaborador-item" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee;">
+                    <h3>Carolina Moura de Mattos</h3>
+                    <p><strong>Idade:</strong> 19 anos</p>
+                    <p><strong>Cidade:</strong> Rio de Janeiro - RJ</p>
+                    <p><strong>Curso:</strong> Engenharia de Produção (Segundo Período)</p>
+                </div>
+
+                {# === Colaborador 2 === #}
+                <div class="colaborador-item" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee;">
+                    <h3>Marina Vidigal Nevares</h3>
+                    <p><strong>Idade:</strong> 18 anos</p>
+                    <p><strong>Cidade:</strong> Barbacena - MG / Rio de Janeiro - RJ</p>
+                    <p><strong>Curso:</strong> Engenharia de Produção (Segundo Período)</p>
+                </div>
+
+                {# === Colaborador 3 === #}
+                <div class="colaborador-item" style="margin-bottom: 20px;">
+                    <h3>Vinicius Viggiani Cotrim</h3>
+                    <p><strong>Idade:</strong> 22 anos</p>
+                    <p><strong>Cidade:</strong> Rio de Janeiro - RJ</p>
+                    <p><strong>Curso:</strong> Engenharia de Produção (Terceiro Período)</p>
+                </div>
+            </div>
+
+            <a href="{% url 'principal' %}" class="btn ghost" style="margin-top: 20px;">
+                Voltar à Página Inicial
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
